@@ -39,7 +39,6 @@ export function handleNext(state: State, setState, router) {
     
   }
   setState((prev) => {
-    if(prev.step == 3) return;
     return { ...prev, step: prev.step + 1 };
   });
 }

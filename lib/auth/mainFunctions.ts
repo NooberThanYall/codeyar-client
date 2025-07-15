@@ -13,19 +13,13 @@ export async function signUpUser(state: State, setState: any, router) {
             'content-type': 'application/json'
          },
          method: 'POST',
-         body: JSON.stringify(formData)
+         body: JSON.stringify(formData),
+         credentials: 'include'
       });
-
-
 
       const res = await req.json();
       
       if(!res.success) throw new Error(res.message);
-
-      const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 40);
-
-      document.cookie = `session=${res.token}; path=/; Secure; SameSite=Strict; Expires=${expirationDate.toUTCString()};`;
 
       router.replace('/dashboard')
    } catch (error: {message: string}) {
@@ -51,7 +45,8 @@ export async function signInUser(state: State, setState: any, router) {
             'content-type': 'application/json'
          },
          method: 'POST',
-         body: JSON.stringify(formData)
+         body: JSON.stringify(formData),
+         credentials: 'include'
       });
 
 
@@ -60,10 +55,6 @@ export async function signInUser(state: State, setState: any, router) {
       
       if(!res.success) throw new Error(res.message);
 
-      const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + 40);
-
-      document.cookie = `session=${res.token}; path=/; Secure; SameSite=Strict; Expires=${expirationDate.toUTCString()};`;
 
          router.replace('/dashboard')
    } catch (error: {message: string}) {
