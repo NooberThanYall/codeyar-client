@@ -16,9 +16,9 @@ const menuItems = [
 
 const stats = [
   { title: "قطعه کدهای ذخیره شده", value: "247", change: "+12%", color: "bg-red-500" },
-  { title: "پروژه‌های فعال", value: "18", change: "+3%", color: "bg-green-500" },
-  { title: "خطاهای رفع شده", value: "89", change: "+25%", color: "bg-purple-500" },
-  { title: "زمان صرفه‌جویی شده", value: "156 ساعت", change: "+8%", color: "bg-orange-500" },
+  // { title: "پروژه‌های فعال", value: "18", change: "+3%", color: "bg-green-500" },
+  // { title: "خطاهای رفع شده", value: "89", change: "+25%", color: "bg-purple-500" },
+  // { title: "زمان صرفه‌جویی شده", value: "156 ساعت", change: "+8%", color: "bg-orange-500" },
 ]
 
 export default function Dashboard() {
@@ -162,7 +162,7 @@ export default function Dashboard() {
                   <h3 className="text-lg text-white font-semibold mb-2">دسترسی سریع</h3>
                   <p className="text-gray-400 text-sm mb-4">ابزارهای پرکاربرد شما</p>
                   <div className="grid gap-3">
-                    <Link href="/snippets">
+                    <Link href="/dashboard/snippets">
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
