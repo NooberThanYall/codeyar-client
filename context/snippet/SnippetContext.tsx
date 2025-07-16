@@ -11,13 +11,11 @@ const SnippetProvider = ({ children }) => {
   }, []);
 
   async function fetchSnippets() {
-    const session = getCookieValue("session");
+    // const session = getCookieValue("session");
 
     try {
       const res = await fetch("http://127.0.0.1:5000/snippet", {
-        headers: {
-          authorization: `Bearer ${session}`,
-        },
+        credentials: 'include'
       });
 
       const data = await res.json();

@@ -27,7 +27,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
   const [tagsExpanded, setTagsExpanded] = useState(true)
 
   const languages = [
-    { title: "JavaScript", count: 45, id: "javascript" },
+    { title: "JS", count: 45, id: "javascript" },
     { title: "Python", count: 32, id: "python" },
     { title: "React", count: 28, id: "react" },
     { title: "TypeScript", count: 15, id: "typescript" },

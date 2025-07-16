@@ -1,43 +1,43 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { X, Copy, Check, Heart, Share, Edit, Trash2 } from "lucide-react"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Copy, Check, Heart, Share, Edit, Trash2 } from "lucide-react";
 
 interface Snippet {
-  id: number
-  title: string
-  description: string
-  language: string
-  code: string
-  tags: string[]
-  author: string
-  createdAt: string
-  likes: number
-  isLiked: boolean
+  id: number;
+  title: string;
+  description: string;
+  language: string;
+  code: string;
+  tags: string[];
+  author: string;
+  createdAt: string;
+  likes: number;
+  isLiked: boolean;
 }
 
 interface SnippetModalProps {
-  snippet: Snippet | null
-  isOpen: boolean
-  onClose: () => void
+  snippet: Snippet | null;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
-  const [copied, setCopied] = useState(false)
-  const [liked, setLiked] = useState(snippet?.isLiked || false)
+  const [copied, setCopied] = useState(false);
+  const [liked, setLiked] = useState(snippet?.isLiked || false);
 
-  if (!snippet || !isOpen) return null
+  if (!snippet || !isOpen) return null;
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(snippet.code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    await navigator.clipboard.writeText(snippet.code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleLike = () => {
-    setLiked(!liked)
-  }
+    setLiked(!liked);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
@@ -54,7 +54,10 @@ export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
             <h2 className="text-xl font-bold text-white">{snippet.title}</h2>
             <p className="text-gray-400 mt-1">{snippet.description}</p>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-md hover:bg-gray-700">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white p-2 rounded-md hover:bg-gray-700"
+          >
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -106,7 +109,9 @@ export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
               <button
                 onClick={handleCopy}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                  copied ? "bg-green-900/30 text-green-400" : "bg-red-600 text-white hover:bg-red-700"
+                  copied
+                    ? "bg-green-900/30 text-green-400"
+                    : "bg-red-600 text-white hover:bg-red-700"
                 }`}
               >
                 <AnimatePresence mode="wait">
@@ -138,7 +143,10 @@ export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
             </div>
 
             <div className="bg-[#252525] border border-gray-700 rounded-lg p-4 overflow-x-auto">
-              <pre className="text-sm text-gray-300 font-mono whitespace-pre-wrap">
+              <pre
+                className="text-sm text-gray-300 font-mono whitespace-pre-wrap text-left"
+                dir="ltr"
+              >
                 <code>{snippet.code}</code>
               </pre>
             </div>
@@ -158,5 +166,5 @@ export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
         </div>
       </motion.div>
     </div>
-  )
+  );
 }
