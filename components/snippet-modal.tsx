@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Copy, Check, Heart, Share, Edit, Trash2 } from "lucide-react";
+import { X, Copy, Check, Heart, Share, Edit, Trash2, Pen } from "lucide-react";
+import Link from "next/link";
 
 interface Snippet {
-  id: number;
+  _id: number;
   title: string;
   description: string;
   language: string;
@@ -83,6 +84,12 @@ export function SnippetModal({ snippet, isOpen, onClose }: SnippetModalProps) {
                 <Heart className={`h-4 w-4 ${liked ? "fill-current" : ""}`} />
                 <span>{liked ? snippet.likes + 1 : snippet.likes}</span>
               </button>
+              <Link href={`/snippets/edit/${snippet._id}`}>
+                <button className="flex items-center gap-2 px-3 py-1 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors">
+                  <Pen className="h-4 w-4" />
+                  ویرایش
+                </button>
+              </Link>
               <button className="flex items-center gap-2 px-3 py-1 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors">
                 <Share className="h-4 w-4" />
                 اشتراک

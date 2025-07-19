@@ -37,7 +37,6 @@ export function SnippetCard({ snippet, onClick }: SnippetCardProps) {
 
         <h3 className="text-white font-medium text-lg">{snippet.title}</h3>
       </div>
-
       <div className="flex flex-wrap gap-2 mb-3">
         {snippet.tags.map((tag) => (
           <span key={tag} className="text-red-500 text-sm">

@@ -20,7 +20,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUser();
+    if(!user) fetchUser();
   }, []);
 
   async function fetchUser() {

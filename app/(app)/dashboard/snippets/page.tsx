@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Link from "next/link"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   ArrowRight,
   Search,
@@ -15,26 +15,32 @@ import {
   ChevronRight,
   Menu,
   X,
-  ChevronDown,
-} from "lucide-react"
-import { SnippetCard } from "@/components/snippet-card"
-import { SnippetModal } from "@/components/snippet-modal"
-import { useSnippet } from "@/context/snippet/SnippetContext"
+} from "lucide-react";
+import { SnippetCard } from "@/components/snippet-card";
+import { SnippetModal } from "@/components/snippet-modal";
+import { useSnippet } from "@/context/snippet/SnippetContext";
 
 // Sidebar Component
-const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCategory, selectedTag, setSelectedTag }) => {
-  const [languagesExpanded, setLanguagesExpanded] = useState(true)
-  const [tagsExpanded, setTagsExpanded] = useState(true)
+const Sidebar = ({
+  sidebarOpen,
+  setSidebarOpen,
+  selectedCategory,
+  setSelectedCategory,
+  selectedTag,
+  setSelectedTag,
+}) => {
+  const [languagesExpanded, setLanguagesExpanded] = useState(true);
+  const [tagsExpanded, setTagsExpanded] = useState(true);
 
   const languages = [
-    { title: "JS", count: 45, id: "javascript" },
-    { title: "Python", count: 32, id: "python" },
+    { title: "JS", count: 45, id: "js" },
+    { title: "Python", count: 32, id: "py" },
     { title: "React", count: 28, id: "react" },
-    { title: "TypeScript", count: 15, id: "typescript" },
+    { title: "TypeScript", count: 15, id: "ts" },
     { title: "CSS", count: 19, id: "css" },
     { title: "HTML", count: 12, id: "html" },
-  ]
-  const tags = ["react", "auth", "css", "layout", "javascript", "arrays"]
+  ];
+  const tags = ["react", "auth", "css", "layout", "javascript", "arrays"];
 
   return (
     <div
@@ -44,7 +50,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
     >
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between p-4 border-gray-800">
-          <Link href="/dashboard" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+          >
             <ArrowRight className="h-4 w-4" /> بازگشت به داشبورد
           </Link>
           <button
@@ -59,7 +68,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
             <button
               onClick={() => setSelectedCategory("all")}
               className={`w-full flex rounded-full items-center gap-3 p-3 text-right transition-colors ${
-                selectedCategory === "all" ? "bg-red-600 text-white" : "text-gray-300 hover:bg-[#2a2a2a]"
+                selectedCategory === "all"
+                  ? "bg-red-600 text-white"
+                  : "text-gray-300 hover:bg-[#2a2a2a]"
               }`}
             >
               <ChevronRight className="h-4 w-4" /> همه قطعه کدها
@@ -69,7 +80,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
             <button
               onClick={() => setSelectedCategory("favorites")}
               className={`w-full flex items-center gap-3 p-3 rounded-full text-right transition-colors ${
-                selectedCategory === "favorites" ? "bg-red-600 text-white" : "text-gray-300 hover:bg-[#2a2a2a]"
+                selectedCategory === "favorites"
+                  ? "bg-red-600 text-white"
+                  : "text-gray-300 hover:bg-[#2a2a2a]"
               }`}
             >
               <ChevronRight className="h-4 w-4" /> محبوب‌ترین‌ها
@@ -80,7 +93,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
               onClick={() => setLanguagesExpanded(!languagesExpanded)}
               className="w-full flex items-center gap-3 p-3 rounded-full text-gray-300 hover:bg-[#2a2a2a] transition-colors"
             >
-              <ChevronRight className={`h-4 w-4 transition-transform ${languagesExpanded ? "rotate-90" : ""}`} /> زبان‌ها
+              <ChevronRight
+                className={`h-4 w-4 transition-transform ${
+                  languagesExpanded ? "rotate-90" : ""
+                }`}
+              />{" "}
+              زبان‌ها
             </button>
             {languagesExpanded && (
               <div className="pb-2">
@@ -89,7 +107,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
                     key={lang.id}
                     onClick={() => setSelectedCategory(lang.id)}
                     className={`w-full flex items-center justify-between rounded-full px-10 py-2 text-right transition-colors ${
-                      selectedCategory === lang.id ? "text-red-400 bg-[#2a2a2a]" : "text-gray-400 hover:text-white"
+                      selectedCategory === lang.id
+                        ? "text-red-400 bg-[#2a2a2a]"
+                        : "text-gray-400 hover:text-white"
                     }`}
                   >
                     <span>{lang.title}</span>
@@ -103,16 +123,25 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
               onClick={() => setTagsExpanded(!tagsExpanded)}
               className="w-full flex items-center gap-3 p-3 rounded-full text-gray-300 hover:bg-[#2a2a2a] transition-colors"
             >
-              <ChevronRight className={`h-4 w-4 transition-transform ${tagsExpanded ? "rotate-90" : ""}`} /> برچسب‌ها
+              <ChevronRight
+                className={`h-4 w-4 transition-transform ${
+                  tagsExpanded ? "rotate-90" : ""
+                }`}
+              />{" "}
+              برچسب‌ها
             </button>
             {tagsExpanded && (
               <div className="px-6 py-2 space-y-2">
                 {tags.map((tag) => (
                   <button
                     key={tag}
-                    onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                    onClick={() =>
+                      setSelectedTag(selectedTag === tag ? null : tag)
+                    }
                     className={`block rounded-full text-right transition-colors ${
-                      selectedTag === tag ? "text-red-400" : "text-red-500 hover:text-red-400"
+                      selectedTag === tag
+                        ? "text-red-400"
+                        : "text-red-500 hover:text-red-400"
                     }`}
                   >
                     #{tag}
@@ -129,8 +158,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, selectedCategory, setSelectedCat
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Header Component
 const Header = ({ searchQuery, setSearchQuery, setSidebarOpen }) => (
@@ -158,20 +187,24 @@ const Header = ({ searchQuery, setSearchQuery, setSidebarOpen }) => (
       <User className="h-5 w-5" />
     </div>
   </header>
-)
+);
 
 // ContentHeader Component
 const ContentHeader = ({ filteredCount, viewMode, setViewMode }) => (
   <div className="flex items-center justify-between p-4 bg-[#121212] border-b border-gray-800">
     <div className="flex items-center gap-2">
       <h1 className="text-white text-xl font-medium">قطعه کدها</h1>
-      <span className="bg-gray-800 text-gray-300 px-2 py-1 rounded text-sm">{filteredCount}</span>
+      <span className="bg-gray-800 text-gray-300 px-2 py-1 rounded text-sm">
+        {filteredCount}
+      </span>
     </div>
     <div className="flex gap-2">
       <button
         onClick={() => setViewMode("grid")}
         className={`p-2 rounded-md transition-colors ${
-          viewMode === "grid" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white hover:bg-gray-800"
+          viewMode === "grid"
+            ? "bg-gray-700 text-white"
+            : "text-gray-400 hover:text-white hover:bg-gray-800"
         }`}
       >
         <Grid className="h-5 w-5" />
@@ -179,18 +212,24 @@ const ContentHeader = ({ filteredCount, viewMode, setViewMode }) => (
       <button
         onClick={() => setViewMode("list")}
         className={`p-2 rounded-md transition-colors ${
-          viewMode === "list" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white hover:bg-gray-800"
+          viewMode === "list"
+            ? "bg-gray-700 text-white"
+            : "text-gray-400 hover:text-white hover:bg-gray-800"
         }`}
       >
         <List className="h-5 w-5" />
       </button>
     </div>
   </div>
-)
+);
 
 // SnippetGrid Component
 const SnippetGrid = ({ snippets, setSelectedSnippet, viewMode }) => (
-  <div className={`grid gap-4 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
+  <div
+    className={`grid gap-4 ${
+      viewMode === "grid" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
+    }`}
+  >
     <AnimatePresence>
       {snippets.map((snippet, index) => (
         <motion.div
@@ -201,54 +240,63 @@ const SnippetGrid = ({ snippets, setSelectedSnippet, viewMode }) => (
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ delay: index * 0.05 }}
         >
-          <SnippetCard snippet={snippet} onClick={() => setSelectedSnippet(snippet)} />
+          <SnippetCard
+            snippet={snippet}
+            onClick={() => setSelectedSnippet(snippet)}
+          />
         </motion.div>
       ))}
     </AnimatePresence>
   </div>
-)
+);
 
 // NoResults Component
 const NoResults = ({ searchQuery }) => (
-  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    className="text-center py-12"
+  >
     <Code2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
     <h3 className="text-lg font-medium text-white mb-2">قطعه کدی یافت نشد</h3>
     <p className="text-gray-400">
       {searchQuery ? "جستجوی خود را تغییر دهید" : "قطعه کد جدیدی اضافه کنید"}
     </p>
-    <Link href={'/dashboard/snippets/new'}>
+    <Link href={"/dashboard/snippets/new"}>
       <button className="mx-auto flex mt-4 rounded-full items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-3 px-4 font-medium transition-colors">
-            <Plus className="h-4 w-4" /> ایجاد قطعه کد جدید
-          </button>
+        <Plus className="h-4 w-4" /> ایجاد قطعه کد جدید
+      </button>
     </Link>
   </motion.div>
-)
+);
 
 export default function SnippetsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all")
-  const [selectedTag, setSelectedTag] = useState<string | null>(null)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedSnippet, setSelectedSnippet] = useState<any>(null)
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSnippet, setSelectedSnippet] = useState<any>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { snippets } = useSnippet()
+  const { snippets } = useSnippet();
 
   const filteredSnippets = snippets.filter((snippet) => {
     const matchesSearch =
       snippet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       snippet.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      snippet.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      snippet.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
     const matchesCategory =
       selectedCategory === "all" ||
       snippet.language.toLowerCase() === selectedCategory ||
-      (selectedCategory === "favorites" && snippet.likes > 20)
+      (selectedCategory === "favorites" && snippet.likes > 20);
 
-    const matchesTag = !selectedTag || snippet.tags.includes(selectedTag)
+    const matchesTag = !selectedTag || snippet.tags.includes(selectedTag);
 
-    return matchesSearch && matchesCategory && matchesTag
-  })
+    return matchesSearch && matchesCategory && matchesTag;
+  });
 
   return (
     <div className="flex h-screen bg-[#121212]">
@@ -261,21 +309,38 @@ export default function SnippetsPage() {
         setSelectedTag={setSelectedTag}
       />
       <div className="flex-1 flex flex-col">
-        <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} setSidebarOpen={setSidebarOpen} />
+        <Header
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSidebarOpen={setSidebarOpen}
+        />
         <ContentHeader
           filteredCount={filteredSnippets.length}
           viewMode={viewMode}
           setViewMode={setViewMode}
         />
         <main className="flex-1 overflow-auto p-4 bg-[#121212]">
-          <SnippetGrid snippets={filteredSnippets} setSelectedSnippet={setSelectedSnippet} viewMode={viewMode} />
-          {filteredSnippets.length === 0 && <NoResults searchQuery={searchQuery} />}
+          <SnippetGrid
+            snippets={filteredSnippets}
+            setSelectedSnippet={setSelectedSnippet}
+            viewMode={viewMode}
+          />
+          {filteredSnippets.length === 0 && (
+            <NoResults searchQuery={searchQuery} />
+          )}
         </main>
       </div>
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
-      <SnippetModal snippet={selectedSnippet} isOpen={!!selectedSnippet} onClose={() => setSelectedSnippet(null)} />
+      <SnippetModal
+        snippet={selectedSnippet}
+        isOpen={!!selectedSnippet}
+        onClose={() => setSelectedSnippet(null)}
+      />
     </div>
-  )
+  );
 }

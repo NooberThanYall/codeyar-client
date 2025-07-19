@@ -1,29 +1,33 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { decrypt } from './lib/auth/jwt' // همون decrypt JWT خودت
+import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
+  const cookie = req.headers.get('cookie') || '';
+  const url = new URL(req.url);
 
   try {
+    if (url.pathname.startsWith('/admin')) {
+      const res = await fetch('http://localhost:5000/user/is-admin', {
+        headers: { cookie },
+      });
 
-    // اینجا می‌تونی یه call بزنی به /me یا مستقیم به db اگه خواستی
-    const res = await fetch('http://localhost:5000/user/me', {
-      credentials: 'include'
-    });
+      if (!res.ok) throw new Error('not admin');
+    }
 
-    const user = await res.json();
+    // سایر مسیرها مثل /dashboard که فقط subscription نیاز دارن
+    if (url.pathname.startsWith('/dashboard')) {
+      const res = await fetch('http://localhost:5000/user/subscription', {
+        headers: { cookie },
+      });
 
-    if (!user.admin) {
-      return NextResponse.redirect(new URL('/', req.url));
+      const { hasActiveSubscription } = await res.json();
+
+      if (!hasActiveSubscription) {
+        return NextResponse.redirect(new URL('/', req.url));
+      }
     }
 
     return NextResponse.next();
-
   } catch (err) {
-    return NextResponse.redirect(new URL('/login', req.url));
+    return NextResponse.redirect(new URL('/signup', req.url));
   }
-}
-
-// فقط روی مسیر /admin اجرا شه
-export const config = {
-  matcher: ['/admin'],
 }

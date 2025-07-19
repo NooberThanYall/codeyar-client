@@ -15,7 +15,7 @@ const SnippetProvider = ({ children }) => {
 
     try {
       const res = await fetch("http://127.0.0.1:5000/snippet", {
-        credentials: 'include'
+        credentials: "include",
       });
 
       const data = await res.json();
@@ -32,6 +32,7 @@ const SnippetProvider = ({ children }) => {
     <snippetContext.Provider
       value={{
         snippets,
+        setSnippets,
       }}
     >
       {children}

@@ -1,12 +1,29 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Zap, Code2, Bug, BarChart3, Check, ArrowLeft, ChevronLeft } from "lucide-react"
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  Zap,
+  Code2,
+  Bug,
+  BarChart3,
+  Check,
+  ArrowLeft,
+  ChevronLeft,
+} from "lucide-react";
+import { useUser } from "@/context/auth/UserCotext";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
+  
+  const { user } = useUser();
+  const router = useRouter();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]" dir="rtl">
+    <div
+      className="min-h-screen bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]"
+      dir="rtl"
+    >
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-800">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -20,30 +37,56 @@ export default function LandingPage() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="#features"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               ویژگی‌ها
             </a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="#pricing"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               قیمت‌گذاری
             </a>
-            <a href="#faq" className="text-gray-300 hover:text-white transition-colors">
+            <a
+              href="#faq"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
               سوالات متداول
             </a>
           </nav>
           <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors"
-            >
-              ورود به داشبورد
-              <ChevronLeft className="h-4 w-4" />
-            </Link>
-            <Link
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="hidden md:flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors"
+              >
+                ورود به داشبورد
+                <ChevronLeft className="h-4 w-4" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/signup"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors"
+                >
+                  ثبت نام
+                </Link>
+                <Link
+                  href="/signup"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 hover:bg-gray-100 bg-opacity-40 text-white rounded-full transition-colors"
+                >
+                  ورود
+                </Link>
+              </>
+            )}
+            {/* <Link
               href="/dashboard"
               className="md:hidden flex items-center justify-center h-10 w-10 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
             >
               <ChevronLeft className="h-5 w-5" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </header>
@@ -58,10 +101,12 @@ export default function LandingPage() {
             className="max-w-3xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.2] lg:leading-[1.25]">
-  ابزار هوشمند <span className="text-red-500">توسعه‌دهندگان</span> برای افزایش بهره‌وری
-</h1>
+              ابزار هوشمند <span className="text-red-500">توسعه‌دهندگان</span>{" "}
+              برای افزایش بهره‌وری
+            </h1>
             <p className="text-xl text-gray-300 mb-8">
-              کدیار، پلتفرم جامع مدیریت قطعه کدها، دیباگ هوشمند و ابزارهای توسعه برای برنامه‌نویسان حرفه‌ای
+              کدیار، پلتفرم جامع مدیریت قطعه کدها، دیباگ هوشمند و ابزارهای توسعه
+              برای برنامه‌نویسان حرفه‌ای
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -85,9 +130,12 @@ export default function LandingPage() {
       <section id="features" className="py-20 bg-[#121212]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">ویژگی‌های کلیدی</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              ویژگی‌های کلیدی
+            </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              کدیار با ارائه ابزارهای هوشمند و کاربردی، تجربه برنامه‌نویسی شما را متحول می‌کند
+              کدیار با ارائه ابزارهای هوشمند و کاربردی، تجربه برنامه‌نویسی شما
+              را متحول می‌کند
             </p>
           </div>
 
@@ -96,25 +144,29 @@ export default function LandingPage() {
               {
                 icon: Code2,
                 title: "مدیریت قطعه کدها",
-                description: "ذخیره، دسته‌بندی و جستجوی سریع قطعه کدهای پرکاربرد با قابلیت برچسب‌گذاری",
+                description:
+                  "ذخیره، دسته‌بندی و جستجوی سریع قطعه کدهای پرکاربرد با قابلیت برچسب‌گذاری",
                 color: "bg-red-600",
               },
               {
                 icon: Bug,
                 title: "دیباگر هوشمند",
-                description: "تشخیص و رفع خودکار خطاهای کد با استفاده از هوش مصنوعی پیشرفته",
+                description:
+                  "تشخیص و رفع خودکار خطاهای کد با استفاده از هوش مصنوعی پیشرفته",
                 color: "bg-purple-600",
               },
               {
                 icon: BarChart3,
                 title: "تحلیل عملکرد",
-                description: "بررسی و بهینه‌سازی عملکرد کد با ابزارهای تحلیلی پیشرفته",
+                description:
+                  "بررسی و بهینه‌سازی عملکرد کد با ابزارهای تحلیلی پیشرفته",
                 color: "bg-green-600",
               },
               {
                 icon: Zap,
                 title: "افزایش بهره‌وری",
-                description: "صرفه‌جویی در زمان و افزایش کیفیت کد با ابزارهای خودکارسازی",
+                description:
+                  "صرفه‌جویی در زمان و افزایش کیفیت کد با ابزارهای خودکارسازی",
                 color: "bg-blue-600",
               },
             ].map((feature, index) => (
@@ -126,10 +178,14 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 className="bg-[#1e1e1e] border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-all hover:shadow-lg"
               >
-                <div className={`${feature.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4`}>
+                <div
+                  className={`${feature.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4`}
+                >
                   <feature.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {feature.title}
+                </h3>
                 <p className="text-gray-400">{feature.description}</p>
               </motion.div>
             ))}
@@ -141,9 +197,12 @@ export default function LandingPage() {
       <section className="py-20 bg-[#0a0a0a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">رابط کاربری قدرتمند</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              رابط کاربری قدرتمند
+            </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              طراحی مدرن و کاربرپسند برای تجربه‌ای لذت‌بخش در استفاده از ابزارهای توسعه
+              طراحی مدرن و کاربرپسند برای تجربه‌ای لذت‌بخش در استفاده از
+              ابزارهای توسعه
             </p>
           </div>
 
@@ -172,7 +231,10 @@ export default function LandingPage() {
                     </div>
                     <div className="space-y-2">
                       {[1, 2, 3, 4, 5].map((i) => (
-                        <div key={i} className="h-8 bg-gray-800 rounded flex items-center px-2">
+                        <div
+                          key={i}
+                          className="h-8 bg-gray-800 rounded flex items-center px-2"
+                        >
                           <div className="w-4 h-4 rounded bg-gray-700 ml-2"></div>
                           <div className="flex-1 h-3 bg-gray-700 rounded"></div>
                         </div>
@@ -198,7 +260,10 @@ export default function LandingPage() {
                         <div className="h-4 w-1/2 bg-gray-700 rounded mb-2"></div>
                         <div className="space-y-2">
                           {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="h-8 bg-gray-700 rounded flex items-center px-2">
+                            <div
+                              key={i}
+                              className="h-8 bg-gray-700 rounded flex items-center px-2"
+                            >
                               <div className="w-4 h-4 rounded bg-gray-600 ml-2"></div>
                               <div className="flex-1 h-3 bg-gray-600 rounded"></div>
                             </div>
@@ -218,9 +283,12 @@ export default function LandingPage() {
       <section id="pricing" className="py-20 bg-[#121212]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">قیمت‌گذاری ساده و منعطف</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              قیمت‌گذاری ساده و منعطف
+            </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              پلن‌های متنوع متناسب با نیازهای شما، از توسعه‌دهندگان فردی تا تیم‌های بزرگ
+              پلن‌های متنوع متناسب با نیازهای شما، از توسعه‌دهندگان فردی تا
+              تیم‌های بزرگ
             </p>
           </div>
 
@@ -230,15 +298,20 @@ export default function LandingPage() {
                 name: "رایگان",
                 price: "۰",
                 description: "برای شروع کار و آشنایی با امکانات",
-                features: ["ذخیره تا ۵۰ قطعه کد", "دسترسی به ابزارهای پایه", "۱ پروژه فعال", "پشتیبانی از طریق ایمیل"],
+                features: [
+                  "ذخیره تا ۵۰ قطعه کد",
+                  "دسترسی به ابزارهای پایه",
+                  "۱ پروژه فعال",
+                  "پشتیبانی از طریق ایمیل",
+                ],
                 cta: "شروع کنید",
                 popular: false,
                 color: "border-gray-800 hover:border-gray-700",
                 buttonColor: "bg-gray-800 hover:bg-gray-700",
               },
               {
-                name: "حرفه‌ای",
-                price: "۱۹۹,۰۰۰",
+                name: "حرفه ای",
+                price: "۱۹۹",
                 period: "ماهانه",
                 description: "برای توسعه‌دهندگان حرفه‌ای",
                 features: [
@@ -252,6 +325,7 @@ export default function LandingPage() {
                 popular: true,
                 color: "border-red-600",
                 buttonColor: "bg-red-600 hover:bg-red-700",
+                id: '6878962a9b309983fb6a5f73'
               },
               {
                 name: "تیمی",
@@ -278,8 +352,12 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`bg-[#1e1e1e] border ${plan.color} rounded-xl p-6 relative ${
-                  plan.popular ? "shadow-lg shadow-red-900/20 transform md:-translate-y-4" : ""
+                className={`bg-[#1e1e1e] border ${
+                  plan.color
+                } rounded-xl p-6 relative ${
+                  plan.popular
+                    ? "shadow-lg shadow-red-900/20 transform md:-translate-y-4"
+                    : ""
                 }`}
               >
                 {plan.popular && (
@@ -288,10 +366,18 @@ export default function LandingPage() {
                   </div>
                 )}
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {plan.name}
+                  </h3>
                   <div className="flex items-center justify-center gap-1">
-                    <span className="text-3xl font-bold text-white">{plan.price}</span>
-                    {plan.period && <span className="text-gray-400">تومان / {plan.period}</span>}
+                    <span className="text-3xl font-bold text-white">
+                      {plan.price}
+                    </span>
+                    {plan.period && (
+                      <span className="text-gray-400">
+                        تومان / {plan.period}
+                      </span>
+                    )}
                   </div>
                   <p className="text-gray-400 mt-2">{plan.description}</p>
                 </div>
@@ -304,6 +390,9 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <button
+                  onClick={() => {
+                      router.push(`/buy-plan/${plan.id}`)
+                  }}
                   className={`w-full py-2 ${plan.buttonColor} text-white rounded-md font-medium transition-colors`}
                 >
                   {plan.cta}
@@ -318,8 +407,12 @@ export default function LandingPage() {
       <section id="faq" className="py-20 bg-[#0a0a0a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">سوالات متداول</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">پاسخ به سوالات رایج شما درباره کدیار</p>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              سوالات متداول
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              پاسخ به سوالات رایج شما درباره کدیار
+            </p>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-6">
@@ -335,7 +428,8 @@ export default function LandingPage() {
                   "بله، شما می‌توانید در هر زمان پلن خود را ارتقا دهید یا به پلن پایین‌تر تغییر دهید. تغییرات در صورتحساب بعدی شما اعمال خواهد شد.",
               },
               {
-                question: "آیا کدیار از زبان‌های برنامه‌نویسی خاصی پشتیبانی می‌کند؟",
+                question:
+                  "آیا کدیار از زبان‌های برنامه‌نویسی خاصی پشتیبانی می‌کند؟",
                 answer:
                   "کدیار از بیش از ۵۰ زبان برنامه‌نویسی محبوب از جمله JavaScript، Python، Java، C++، TypeScript، PHP و بسیاری دیگر پشتیبانی می‌کند.",
               },
@@ -358,7 +452,9 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 className="bg-[#1e1e1e] border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all"
               >
-                <h3 className="text-lg font-medium text-white mb-2">{item.question}</h3>
+                <h3 className="text-lg font-medium text-white mb-2">
+                  {item.question}
+                </h3>
                 <p className="text-gray-400">{item.answer}</p>
               </motion.div>
             ))}
@@ -376,9 +472,12 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-3xl font-bold text-white mb-4">آماده افزایش بهره‌وری خود هستید؟</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">
+              آماده افزایش بهره‌وری خود هستید؟
+            </h2>
             <p className="text-xl text-gray-300 mb-8">
-              همین امروز به کدیار بپیوندید و تجربه برنامه‌نویسی خود را متحول کنید
+              همین امروز به کدیار بپیوندید و تجربه برنامه‌نویسی خود را متحول
+              کنید
             </p>
             <Link
               href="/dashboard"
@@ -405,28 +504,43 @@ export default function LandingPage() {
                   <p className="text-xs text-gray-400">ابزار توسعه هوشمند</p>
                 </div>
               </div>
-              <p className="text-gray-400 mb-4">کدیار، همراه هوشمند برنامه‌نویسان برای افزایش بهره‌وری و کیفیت کد</p>
+              <p className="text-gray-400 mb-4">
+                کدیار، همراه هوشمند برنامه‌نویسان برای افزایش بهره‌وری و کیفیت
+                کد
+              </p>
             </div>
             <div>
               <h3 className="text-white font-medium mb-4">محصولات</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     مدیریت قطعه کدها
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     دیباگر هوشمند
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     تحلیل عملکرد
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     همکاری تیمی
                   </a>
                 </li>
@@ -436,22 +550,34 @@ export default function LandingPage() {
               <h3 className="text-white font-medium mb-4">شرکت</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     درباره ما
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     بلاگ
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     مشاغل
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     تماس با ما
                   </a>
                 </li>
@@ -461,22 +587,34 @@ export default function LandingPage() {
               <h3 className="text-white font-medium mb-4">پشتیبانی</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     مستندات
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     آموزش‌ها
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     سوالات متداول
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     وضعیت سیستم
                   </a>
                 </li>
@@ -488,13 +626,22 @@ export default function LandingPage() {
               © {new Date().getFullYear()} کدیار. تمامی حقوق محفوظ است.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 شرایط استفاده
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 حریم خصوصی
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 امنیت
               </a>
             </div>
@@ -502,5 +649,5 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

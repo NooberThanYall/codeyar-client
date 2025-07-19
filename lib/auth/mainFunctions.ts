@@ -68,7 +68,8 @@ export async function signInUser(state: State, setState: any, router) {
 export async function newSnippetSubmit(state, setState, router, setSnippets) {
   // اعتبارسنجی فیلدها
   if (!state.title || !state.description || !state.code || !state.language) {
-    setState((prev) => ({
+    setState((
+      prev) => ({
       ...prev,
       error: "لطفاً تمام فیلدها را پر کنید",
     }));

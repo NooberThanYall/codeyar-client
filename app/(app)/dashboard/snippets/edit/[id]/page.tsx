@@ -3,8 +3,8 @@ import InputLabel from "@/components/auth/InputLabel";
 import { useSnippet } from "@/context/snippet/SnippetContext";
 import { newSnippetSubmit } from "@/lib/auth/mainFunctions";
 import { SquareCode } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export const initialSnippetState = {
   title: "",
@@ -18,6 +18,32 @@ const NewSnippet = () => {
   const [state, setState] = useState(initialSnippetState);
 
   const router = useRouter();
+  const { id } = useParams();
+
+  useEffect(() => {
+    getSnippetData();
+  }, []);
+
+  async function getSnippetData() {
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/snippets/${id}`, {
+        credentials: "include",
+      });
+
+      if (res.ok) throw new Error((await res.json()).message);
+
+      const data = await res.json();
+
+      setState(prev => {
+        return {...prev, ...data.snippet}
+      })
+    } catch (error) {
+
+      //@ts-expect-error
+      alert(error.message);
+    }
+  }
+
   const { setSnippets } = useSnippet();
 
   const handleChangeInput = (e) => {
