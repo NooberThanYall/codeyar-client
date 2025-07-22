@@ -7,7 +7,7 @@ const snippetContext = createContext<Object | null>(null);
 const SnippetProvider = ({ children }) => {
   const [snippets, setSnippets] = useState([]);
   useEffect(() => {
-    fetchSnippets();
+    if ( snippets.length === 0) fetchSnippets();
   }, []);
 
   async function fetchSnippets() {

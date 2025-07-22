@@ -1,7 +1,7 @@
 "use client";
 import InputLabel from "@/components/auth/InputLabel";
 import { useSnippet } from "@/context/snippet/SnippetContext";
-import { newSnippetSubmit } from "@/lib/auth/mainFunctions";
+import { editSnippetSubmit, newSnippetSubmit } from "@/lib/auth/mainFunctions";
 import { SquareCode } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -14,36 +14,11 @@ export const initialSnippetState = {
   error: "",
 };
 
-const NewSnippet = () => {
+const EditSnippet = () => {
   const [state, setState] = useState(initialSnippetState);
 
   const router = useRouter();
-  const { id } = useParams();
-
-  useEffect(() => {
-    getSnippetData();
-  }, []);
-
-  async function getSnippetData() {
-    try {
-      const res = await fetch(`http://127.0.0.1:5000/snippets/${id}`, {
-        credentials: "include",
-      });
-
-      if (res.ok) throw new Error((await res.json()).message);
-
-      const data = await res.json();
-
-      setState(prev => {
-        return {...prev, ...data.snippet}
-      })
-    } catch (error) {
-
-      //@ts-expect-error
-      alert(error.message);
-    }
-  }
-
+  const { id: snippetId } = useParams();
   const { setSnippets } = useSnippet();
 
   const handleChangeInput = (e) => {
@@ -53,6 +28,33 @@ const NewSnippet = () => {
         [e.target.name]: e.target.value,
       };
     });
+  };
+
+  useEffect(() => {
+    getSnippetValues();
+  }, []);
+
+  const getSnippetValues = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/snippet/${snippetId}`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+
+      setState((prev) => {
+        return { ...prev, ...data.snippet };
+      });
+    } catch (err) {
+      alert(err.message);
+      setState((prev) => {
+        return { ...prev, error: err.message };
+      });
+    }
   };
 
   return (
@@ -102,7 +104,7 @@ const NewSnippet = () => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              newSnippetSubmit(state, setState, router, setSnippets);
+              editSnippetSubmit(state, setState, router, setSnippets, snippetId);
             }}
             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-full transition-colors duration-200 flex items-center justify-center gap-2"
           >
@@ -115,4 +117,4 @@ const NewSnippet = () => {
   );
 };
 
-export default NewSnippet;
+export default EditSnippet;
