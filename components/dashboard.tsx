@@ -34,12 +34,7 @@ export function Dashboard({ onNavigateToSnippets }: DashboardProps) {
         {/* Header */}
         <header className="flex h-16 items-center justify-between border-b border-gray-800 bg-[#1e1e1e] px-4">
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-gray-400 hover:text-white p-2 rounded-md hover:bg-gray-700 lg:hidden"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
+            
             <div className="text-red-500 text-xl font-bold">کدیار</div>
           </div>
           <div className="relative flex-1 mx-4 max-w-md">
