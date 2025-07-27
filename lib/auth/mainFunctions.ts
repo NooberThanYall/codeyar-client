@@ -182,7 +182,8 @@ export const handleAIRequest = async (
   const res = await fetch("http://127.0.0.1:5000/snippet/ai-optimize", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ code: snippet.code }),
+    credentials: 'include',
+    body: JSON.stringify({ inputCode: snippet.code }),
   });
   const data = await res.json();
   setOptimizedCode(data.optimizedCode);
